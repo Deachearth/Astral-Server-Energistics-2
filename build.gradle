@@ -25,7 +25,12 @@ minecraft {
     version = "${mc}-${mcforge}-${mc}"
     runDir = "eclipse"
 }
-
+repositories {
+    maven {
+        name = "gt"
+        url = "https://gregtech.overminddl1.com/"
+    }
+}
 dependencies {
     implementation 'org.jetbrains:annotations-java5:20.1.0'
     implementation 'org.jetbrains:annotations-java5:20.1.0'
