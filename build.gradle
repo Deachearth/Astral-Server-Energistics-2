@@ -34,7 +34,7 @@ repositories {
 dependencies {
     implementation 'org.jetbrains:annotations-java5:20.1.0'
     implementation 'org.jetbrains:annotations-java5:20.1.0'
-    compileOnly "appeng:appliedenergistics2:rv3-beta-6:dev"
+    compile "appeng:appliedenergistics2:rv3-beta-6:dev"
 }
 
 processResources
