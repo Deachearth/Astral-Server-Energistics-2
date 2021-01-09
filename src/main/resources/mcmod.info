@@ -1,0 +1,16 @@
+[
+{
+  "modid": "astralserverenergistics2",
+  "name": "Astral Server Energistics 2",
+  "description": "Adds new ME to AE 2.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["lightdot","jihuayu"],
+  "credits": "MOD open the mods.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
