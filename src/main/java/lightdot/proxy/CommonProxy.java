@@ -21,18 +21,16 @@ public class CommonProxy
 	
 	public void init( final FMLInitializationEvent event )
 	{
-		// AEApi.instance().registries().recipes().addNewSubItemResolver( new NameHandler() );
 		NetworkRegistry.INSTANCE.registerGuiHandler( Astral.instance, GuiBridge.None );
-		this.registerMovables();
 		this.registerTileEntities();
-		this.addRecipes( null );
+		this.addRecipes();
 	}
 	
 	public void postInit( final FMLPostInitializationEvent event )
 	{
 	}
 	
-	protected void addRecipes( final File configFolder )
+	protected void addRecipes()
 	{
 	}
 	
@@ -41,10 +39,6 @@ public class CommonProxy
 	}
 	
 	protected void registerItems()
-	{
-	}
-	
-	protected void registerMovables()
 	{
 	}
 	

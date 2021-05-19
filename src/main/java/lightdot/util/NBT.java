@@ -1,5 +1,6 @@
 package lightdot.util;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -32,29 +33,25 @@ public class NBT extends NBTTagCompound
 	
 	
 	
-	@Override
-	public NBT getCompoundTag( final String name ) {
-		NBTTagCompound nbt = super.getCompoundTag( name );
-		NBT value = null;
+	public NBT getCompoundTag( final String... names )
+	{
+		if ( names == null || names.length < 1 )
+			return null;
 		
-		if ( nbt == null) {
-			value = new NBT();
-		}
-		else if ( nbt instanceof NBT ) {
-			return (NBT) nbt;
-		} else {
-			value = new NBT();
-			Iterator iterator = nbt.func_150296_c().iterator();
-			while ( iterator.hasNext() )
-			{
-				String s = (String) iterator.next();
-				value.setTag( s, nbt.getTag( s ).copy() );
-			}
+		NBTTagCompound nbt = null, value = this;
+		for ( String name : names )
+		{
+			nbt = value;
+			value = nbt.getCompoundTag( name );
+			if ( value == null ) return null;
 		}
 		
-		this.set( name, value );
-		return value;
+		NBT temp = translatorNBT( value );
+		nbt.setTag( names[ names.length - 1 ], temp );
+		return temp;
 	}
+	
+	
 	
 	public byte get( final String name, final byte def ) {
 		if ( this.hasKey( name ) ) {
@@ -207,6 +204,20 @@ public class NBT extends NBTTagCompound
 				value.setTag( s, nbt.getTag( s ).copy() );
 			}
 			return value;
+		}
+	}
+	
+	public static NBT getTagCompound( final ItemStack stack )
+	{
+		if ( stack.hasTagCompound() )
+		{
+			return translatorNBT( stack.getTagCompound() );
+		}
+		else
+		{
+			NBT nbt = new NBT();
+			stack.setTagCompound( nbt );
+			return nbt;
 		}
 	}
 }
