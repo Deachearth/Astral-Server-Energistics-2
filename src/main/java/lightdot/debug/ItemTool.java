@@ -14,6 +14,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import java.util.List;
+import java.util.Set;
 
 public class ItemTool extends Item
 {
@@ -23,6 +24,8 @@ public class ItemTool extends Item
 		this.setMaxDamage( 100 );
 		this.setNoRepair();
 		this.canRepair = false;
+		
+		this.setHarvestLevel( "pickaxe", 1 );
 	}
 	
 	/**
@@ -33,7 +36,7 @@ public class ItemTool extends Item
 	@Override
 	public boolean func_150897_b ( Block block )
 	{
-		return true;
+		return false;
 	}
 	
 	/**
@@ -80,7 +83,8 @@ public class ItemTool extends Item
 		Material.piston
 	};
 	
-	boolean isBlockStartBreak = false;
+	int startBreakCount = 1;
+	boolean startBreakIs = false;
 	
 	/**
 	 * 方块破坏前调用的函数
@@ -94,11 +98,19 @@ public class ItemTool extends Item
 	@Override
 	public boolean onBlockStartBreak ( ItemStack stack, int x, int y, int z, EntityPlayer p )
 	{
-		if ( this.isBlockStartBreak = !this.isBlockStartBreak )
+		if ( AstralDebug.proxy.isClient() && ( this.startBreakIs = !this.startBreakIs ) )
 		{
 			Block b = p.worldObj.getBlock( x, y, z );
 			int index = Platform.getIndexForArray( Materials, b.getMaterial() );
-			String printf = String.format( "%s; %s.", b.getUnlocalizedName(), MaterialsName[ index ] );
+			String printf;
+			if ( -1 < index )
+			{
+				printf = String.format( "%d; %s; %s.", startBreakCount++, b.getUnlocalizedName(), MaterialsName[ index ] );
+			}
+			else
+			{
+				printf = String.format( "%d; %s.", startBreakCount++, b.getUnlocalizedName() );
+			}
 			p.addChatMessage( new ChatComponentText( printf ) );
 		}
 		return false;
@@ -114,14 +126,37 @@ public class ItemTool extends Item
 		return true;
 	}
 	
-	/**
-	 * 右键
-	 */
+	/** 右键 */
+	@Override
+	public ItemStack onItemRightClick ( ItemStack stack, World w, EntityPlayer p )
+	{
+		return stack;
+	}
+	
+	/** 右键 */
 	@Override
 	public boolean onItemUse ( ItemStack stack, EntityPlayer p, World w, int x, int y, int z, int side,
 			float clickX, float clickY, float clickZ )
 	{
 		return false;
+	}
+	
+	@Override
+	public final Set<String> getToolClasses ( ItemStack stack )
+	{
+		return super.getToolClasses( stack );
+	}
+	
+	@Override
+	public final int getHarvestLevel ( ItemStack stack, String toolClass )
+	{
+		return super.getHarvestLevel( stack, toolClass );
+	}
+	
+	@Override
+	public final void setHarvestLevel ( String toolClass, int level )
+	{
+		super.setHarvestLevel( toolClass, level );
 	}
 	
 	@Override

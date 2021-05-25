@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 import java.util.List;
 
@@ -23,16 +22,6 @@ public abstract class ItemCore extends Item
 		this.setInternalName( name );
 		this.iconString = name;
 		return this;
-	}
-	
-	/**
-	 * 右键
-	 */
-	@Override
-	public boolean onItemUse ( ItemStack stack, EntityPlayer p, World w, int x, int y, int z, int side,
-			float clickX, float clickY, float clickZ )
-	{
-		return false;
 	}
 	
 	/**
