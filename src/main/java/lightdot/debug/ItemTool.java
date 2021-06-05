@@ -2,7 +2,7 @@ package lightdot.debug;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import lightdot.util.Platform;
+import lightdot.util.Arrayable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -101,7 +101,7 @@ public class ItemTool extends Item
 		if ( AstralDebug.proxy.isClient() && ( this.startBreakIs = !this.startBreakIs ) )
 		{
 			Block b = p.worldObj.getBlock( x, y, z );
-			int index = Platform.getIndexForArray( Materials, b.getMaterial() );
+			int index = Arrayable.IndexOf( Materials, b.getMaterial() );
 			String printf;
 			if ( -1 < index )
 			{
